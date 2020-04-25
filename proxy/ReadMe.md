@@ -4,6 +4,8 @@ Basically an implementation of service discovery in microservices architecture.
 
 ### API
 
+- Url: `http://localhost:9020/`
+
 `/api/services/register`
 
 - Registers a service.
