@@ -17,7 +17,7 @@ function bootstrap() {
 
   if (fs.existsSync(dataPath)) {
     // add existing services to proxy while starting up
-    proxy.load(app);
+    proxy.reload(app);
   } else {
     fs.mkdirSync(dataPath);
   }
