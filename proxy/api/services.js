@@ -1,6 +1,6 @@
 const router = require('express').Router({ mergeParams: true });
 
-const serviceTableHelper = require('../core/service.table.helper');
+const state = require('../state');
 const proxy = require('../core/proxy');
 const error = require('../core/error');
 
@@ -15,20 +15,15 @@ router.post(`/register`, (req, res) => {
     return res.status(badRequest.status).send({ message: badRequest.message });
   }
 
-  const serviceTable = serviceTableHelper.read();
-
-  if (Object.values(serviceTable.services).includes(port)) {
-    const portInUse = error.create('port-in-use', service);
-    return res.status(portInUse.status).send({ message: portInUse.message });
+  try {
+    state.addService(service, port);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
   }
-
-  serviceTable.services[service] = port;
-  serviceTableHelper.write(serviceTable);
-
   // reload proxies
   proxy.reload(appContext.self);
 
-  res.status(200).send(serviceTable);
+  res.status(200).send(state.getAllServices());
 });
 
 router.post(`/deregister`, (req, res) => {
@@ -41,14 +36,11 @@ router.post(`/deregister`, (req, res) => {
     return res.status(badRequest.status).send({ message: badRequest.message });
   }
 
-  const serviceTable = serviceTableHelper.read();
-  delete serviceTable[service];
-  serviceTableHelper.write(serviceTable);
-
+  state.removeService(service);
   // reload proxies
   proxy.reload(appContext.self);
 
-  res.status(200).send(serviceTable);
+  res.status(200).send(state.getAllServices());
 });
 
 module.exports = router;

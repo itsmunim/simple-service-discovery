@@ -1,26 +1,20 @@
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const bodyParser = require('body-parser');
 
 const proxy = require('./proxy');
 const config = require('./config');
 const logger = require('./logger');
 const context = require('./context');
+const state = require('../state');
 const shutdownManager = require('./shutdown.manager');
 
 function bootstrap() {
   // define express app
   const app = express();
   app.use(bodyParser.json());
-  const dataPath = path.resolve(process.cwd(), 'proxy/data');
-
-  if (fs.existsSync(dataPath)) {
-    // add existing services to proxy while starting up
-    proxy.reload(app);
-  } else {
-    fs.mkdirSync(dataPath);
-  }
+  state.initialize();
+  // reload the proxies
+  proxy.reload(app);
 
   return app;
 }

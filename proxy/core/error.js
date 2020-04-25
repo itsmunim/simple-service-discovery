@@ -17,12 +17,6 @@ function create(type, ...params) {
         status: 400,
         message: `Service(s): ${params.join(', ')} is found but to access the path should end with /.`
       };
-
-    case 'port-in-use':
-      return {
-        status: 500,
-        message: `Service(s): ${params.join(', ')} can not be registered, as some other service is registered in same port.`
-      };
   }
 }
 
