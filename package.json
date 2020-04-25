@@ -1,8 +1,16 @@
 {
-  "name": "microservices-example",
+  "name": "service-discovery-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "A service discovery POC in microservices architecture.",
   "main": "index.js",
+  "keywords": [
+    "service-discovery",
+    "service",
+    "sd",
+    "microservice",
+    "architecture",
+    "poc"
+  ],
   "scripts": {
     "proxy": "DEBUG=proxy-service node ./proxy/index.js",
     "checkout": "DEBUG=checkout-service node ./checkout/index.js",
