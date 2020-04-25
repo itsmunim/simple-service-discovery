@@ -1,20 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 
-const serviceTablePath = path.resolve(process.cwd(), 'proxy/data/service.table.json');
+const dataDir = path.resolve(process.cwd(), 'proxy/data');
+const filePath = `${dataDir}/service.table.json`;
 
 function create() {
-  if (!fs.existsSync(serviceTablePath)) {
-    fs.writeFileSync(serviceTablePath, JSON.stringify({ services: {} }, null, 2));
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+  }
+
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, JSON.stringify({ items: {} }, null, 2));
   }
 }
 
 function read() {
-  return JSON.parse(fs.readFileSync(serviceTablePath));
+  return JSON.parse(fs.readFileSync(filePath));
 }
 
 function write(serviceTable) {
-  fs.writeFileSync(serviceTablePath, JSON.stringify(serviceTable, null, 2));
+  fs.writeFileSync(filePath, JSON.stringify(serviceTable, null, 2));
 }
 
 module.exports = {

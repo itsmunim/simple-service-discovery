@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-proxy": "DEBUG=proxy-service node ./proxy/index.js",
+    "proxy": "DEBUG=proxy-service node ./proxy/index.js",
+    "checkout": "DEBUG=checkout-service node ./checkout/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Munim Dibosh",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "debug": "^4.1.1",
     "express": "^4.17.1",
-    "http-proxy-middleware": "^1.0.3"
+    "express-http-proxy": "^1.6.0"
   }
 }
