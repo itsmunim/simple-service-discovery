@@ -21,9 +21,9 @@ Basically an implementation of service discovery in microservices architecture.
 - Request:
 
   ```
-  {service: 'service-a', port: 2020}
+  {service: 'service-a'}
   ```
 
-`/p/{service-name}/api/`
+`/p/{service-name}/*`
 
-- Does proxy to `/api` of `service-name` if it was registered.
+- Does proxy to `/*` of `service-name` if it was registered.

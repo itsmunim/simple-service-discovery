@@ -27,12 +27,12 @@ router.post(`/register`, (req, res) => {
 });
 
 router.post(`/deregister`, (req, res) => {
-  const { service, port } = req.body;
+  const { service } = req.body;
   // injected by context middleware
   const { appContext } = req;
 
-  if (!service || !port) {
-    const badRequest = error.create('bad-request', 'server', 'port');
+  if (!service) {
+    const badRequest = error.create('bad-request', 'server');
     return res.status(badRequest.status).send({ message: badRequest.message });
   }
 
