@@ -18,4 +18,4 @@ You can also explore the APIs by yourself.
 - [checkout](./checkout/ReadMe.md)
 - [payment](./payment/ReadMe.md)
 
-Checkout the services from the proxy urls as well, which are given in these docs as well.
+Checkout the services from the proxy urls as well.
