@@ -30,7 +30,7 @@ function getAllServices() {
 }
 
 function syncWithStorage() {
-  serviceTable.services = storageHelper.read().services;
+  serviceTable.services = storageHelper.read().services || {};
 }
 
 module.exports = {
