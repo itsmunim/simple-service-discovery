@@ -26,6 +26,33 @@ function start(api) {
   // attaching api
   app.use('/api', api);
 
+  // api directory response
+  app.get('/', (req, res) => {
+    const response = {
+      message: 'This is a proxy api service. Try hitting endpoints defined below.',
+      endpoints: [
+        {
+          name: '/api/services/register',
+          description: 'Register a service.',
+          method: 'POST',
+          body: '{service, port}'
+        },
+        {
+          name: '/api/services/deregister',
+          description: 'De-register a service.',
+          method: 'POST',
+          body: '{service}'
+        },
+        {
+          name: '/p/{service-name}/*',
+          description: 'Hit the registered service paths.',
+          method: 'GET'
+        }
+      ]
+    }
+    res.status(200).send(response);
+  });
+
   const server = app.listen(config.port, () => {
     logger.log(`server started successfully on port: ${config.port}`);
   });
